@@ -3,19 +3,68 @@ package com.company;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Plansza {
+public class Talia {
 
     private ArrayList<Karta> cards;
 
-    public Plansza() {
+    public Talia() {
         this.cards = new ArrayList<Karta>();
     }
 
+    public void wybierzKarte(Talia deck){
+        this.cards.add(deck.wezKarte(0));
+        deck.remove(0);
+
+    }
+
+    public int Size(){
+        return this.cards.size();
+    }
+
+    public void ustaw(){
+        ArrayList<Karta> tymcz = new ArrayList<>();
+        Random random = new Random();
+
+        int obecny= 0;
+        for(int i=0; i<this.cards.size(); i++){
+
+            obecny = random.nextInt((cards.size()-1)+1);
+            tymcz.add(cards.get(obecny));
+            cards.remove(obecny);
+
+        }
+        cards= tymcz;
+    }
+
+    public void remove(int i){
+        this.cards.remove(i);
+    }
+
+    public Karta wezKarte(int i){
+        return cards.get(i);
+    }
+
+    public void dodaj(Karta k){
+        this.cards.add(k);
+    }
+
     public void setdeck(){
-        for(Suit cardsuit: Suit.values() ){
-            for(Value cardvalue : Value.values()){
+        for(Rodzaj cardsuit: Rodzaj.values() ){
+            for(Wartosc cardvalue : Wartosc.values()){
                 cards.add(new Karta(cardsuit, cardvalue));
             }
+        }
+    }
+
+    public void wlozkarty(Talia p){
+        int decksize = this.cards.size();
+
+        for(int i =0; i<decksize; i++){
+            p.dodaj(this.wezKarte(i));
+        }
+
+        for(int i=0 ; i< decksize; i++){
+            this.remove(0);
         }
     }
 
@@ -59,19 +108,7 @@ public class Plansza {
         return suma;
     }
 
-    public void ustaDeck(){
 
-        ArrayList<Karta> obecny= new ArrayList<Karta>();
-
-        Random random = new Random();
-        for(int i =0; i<cards.size(); i++){
-            int indeks= random.nextInt((cards.size()-1)+1);
-            obecny.add(cards.get(indeks));
-            cards.remove(indeks);
-        }
-
-        cards= obecny;
-    }
 
 
 
